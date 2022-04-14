@@ -1,3 +1,6 @@
+const clickNumber = 3;//遊戲需要按幾次結束
+const lightUpinterval = 3000;//等待亮燈的時間(ms)
+
 let time = new Date();
 const buttons = $('.button');
 const clickTimes = [];
@@ -8,12 +11,12 @@ buttons.click(e => {
     if (e.target.isLightUp) {
         let timer = new Date() - time;
         clickTimes.push(timer);
-        alert(timer + 'ms');
+        $("#list").append(`<li>${timer} ms</li>`);
         lightDown();
-        if (clickTimes.length == buttons.length)
-            clickTimes.push('End');
+        if (clickTimes.length == clickNumber)
+            alert('End');
         else
-            setTimeout(lightUp, 3000);
+            setTimeout(lightUp, lightUpinterval);
     }
 });
 
@@ -21,7 +24,7 @@ $(document).ready(function () {
     $('#startButton').click(function () {
         lightDown();
         $('#startButton').attr('hidden', true);
-        setTimeout(lightUp, 3000);
+        setTimeout(lightUp, lightUpinterval);
     });
 });
 
